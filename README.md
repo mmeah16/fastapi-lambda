@@ -1,6 +1,7 @@
 This repository underlines the process in creating a FastAPI application and using AWS Lambda to deploy it.
 
 **Pydantic Module Error**
+
 There seems to be an issue with pydantic - "No module named 'pydantic_core._pydantic_core'", 
 but this command:
 

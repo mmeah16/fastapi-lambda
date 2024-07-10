@@ -1,0 +1,5 @@
+aws_lambda_artifact.zip
+__pycache__
+instructions.txt
+dependencies
+venv

@@ -3,3 +3,6 @@ __pycache__
 instructions.txt
 dependencies
 venv
+aws_lambda_artifact_v3.zip
+aws_lambda_artifact_v4.zip
+aws_lambda_artifact_v5.zip

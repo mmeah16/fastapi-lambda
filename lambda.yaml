@@ -18,7 +18,7 @@ Resources:
     Properties:
       Code:
         S3Bucket: serverless-fastapi-lambda-dev-079
-        S3Key: aws_lambda_artifact.zip
+        S3Key: aws_lambda_artifact_v5.zip
       # Code:
       #   ZipFile: |
       #     def handler(event, context):
@@ -31,6 +31,14 @@ Resources:
       Handler: main.handler
       Role: !GetAtt IAMRole.Arn
       Runtime: python3.10
+
+  permissionForURLInvoke:
+    Type: AWS::Lambda::Permission
+    Properties:
+      FunctionName: !Ref LambdaFunction
+      FunctionUrlAuthType: "NONE"
+      Action: lambda:InvokeFunctionUrl
+      Principal: "*"
 
   IAMRole:
     Type: AWS::IAM::Role
@@ -55,6 +63,12 @@ Resources:
                   - logs:CreateLogStream
                   - logs:PutLogEvents
                 Resource: "*"
+              - Effect: Allow
+                Action:
+                  - dynamodb:GetItem
+                  - dynamodb:Scan
+                  - dynamodb:Query
+                Resource: arn:aws:dynamodb:us-east-1:297552353691:table/userbase
           PolicyName: lambda
 
   # APIGateway:

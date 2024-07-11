@@ -2,15 +2,6 @@ Parameters:
   lambdaFunctionName:
     Type: String
     Default: my-lambda-function
-  # apiGatewayName:
-  #   Type: String
-  #   Default: my-api-gateway
-  # apiGatewayStageName:
-  #   Type: String
-  #   Default: call
-  # apiGatewayHTTPMethod:
-  #   Type: String
-  #   Default: POST
 
 Resources:
   LambdaFunction:
@@ -19,13 +10,6 @@ Resources:
       Code:
         S3Bucket: serverless-fastapi-lambda-dev-079
         S3Key: aws_lambda_artifact_v5.zip
-      # Code:
-      #   ZipFile: |
-      #     def handler(event, context):
-      #       return {
-      #         'body' : 'Hello World from Lambda!',
-      #         'statusCode' : 200
-      #       }
       FunctionName: !Ref lambdaFunctionName
       Description: Hello world lambda function
       Handler: main.handler
@@ -70,42 +54,6 @@ Resources:
                   - dynamodb:Query
                 Resource: arn:aws:dynamodb:us-east-1:297552353691:table/userbase
           PolicyName: lambda
-
-  # APIGateway:
-  #   Type: AWS::ApiGateway::RestApi
-  #   Properties:
-  #     Name: !Ref apiGatewayName
-  #     Description: Initial API Gateway
-
-  # APIGatewayMethod:
-  #   Type: AWS::ApiGateway::Method
-  #   Properties:
-  #     ResourceId: !GetAtt APIGateway.RootResourceId
-  #     RestApiId: !Ref APIGateway
-  #     AuthorizationType: NONE
-  #     HttpMethod: POST
-  #     Integration:
-  #       IntegrationHttpMethod: POST
-  #       Type: AWS_PROXY
-  #       Uri: !Sub arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${LambdaFunction.Arn}/invocations
-
-  # APIGatewayDeployment:
-  #   Type: AWS::ApiGateway::Deployment
-  #   Properties:
-  #     RestApiId: !Ref APIGateway
-  #     StageName: call
-  #   DependsOn:
-  #     - APIGatewayMethod
-
-  # APIGatewayPermission:
-  #   Type: AWS::Lambda::Permission
-  #   Properties:
-  #     Action: lambda:InvokeFunction
-  #     FunctionName: !GetAtt LambdaFunction.Arn
-  #     Principal: apigateway.amazonaws.com
-  #     SourceArn: !Sub arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:${APIGateway}/${apiGatewayStageName}/${apiGatewayHTTPMethod}/
-  #   DependsOn:
-  #     - APIGatewayDeployment
 
 Outputs:
   lambdaArn:
